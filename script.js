@@ -42,22 +42,29 @@ for(var i = 0; i < operator.length; i++){
             }
         }
         else{
+            // operators +-*/%
+
             var output = getOutput();
             var history = getHistory();
             if(output==""&&history!=""){
+                console.log("first");
                 if(isNaN(history[history.length-1])){
                     history=history.substr(0,history.length-1);
-
                 }
             }
             if(output!="" || history!=""){
+                console.log("second");
+
                 output = output==""?output:badNumber(output);
                 history=history+output;
                 if(this.id=="="){
+                    console.log("third");
                     var result=evaluateSafe(history);
                     printOutput(result);
                     printHistory("");
                 }else{
+                    console.log("fourth");
+                    history = evaluateSafe(history);
                     history=history+this.id;
                     printHistory(history);
                     printOutput("");
@@ -86,16 +93,16 @@ function evaluateSafe(history) {
         if(operator=="" && isDigit(element)){
             num1 += element;
         }
-        else if(!isDigit(element)){
+        else if(!isDigit(element) && operator == ""){
             operator += element;
         }
-        else if(operator!="" && element!=NaN){
+        else if(operator!="" && isDigit(element)){
             num2 += element;
         }
     }
     console.log(num1 + ":num1  operator:" + operator + "  num2:" + num2 );
     if(num1 == "") return history;
-    if(num2 == "") return history.substr(0, history.length-1);
+    if(num2 == "") return history;
     if(operator != ""){
         if(operator == "+"){
             console.log("+");
