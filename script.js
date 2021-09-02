@@ -64,7 +64,6 @@ for(var i = 0; i < operator.length; i++){
                     printHistory("");
                 }else{
                     console.log("fourth");
-                    history = evaluateSafe(history);
                     history=history+this.id;
                     printHistory(history);
                     printOutput("");
@@ -86,45 +85,50 @@ for(var i=0; i < number.length; i++){
 }
 function evaluateSafe(history) {
     let num1 = "";
-    let num2 = "";
-    let operator = "";
+    let numbers = [];
+    let operators = [];
 
     for(let element of history){
-        if(operator=="" && isDigit(element)){
+        if(isDigit(element)){
             num1 += element;
-        }
-        else if(!isDigit(element) && operator == ""){
-            operator += element;
-        }
-        else if(operator!="" && isDigit(element)){
-            num2 += element;
+        }else{
+            numbers.push(num1);
+            num1="";
+            operators.push(element);
         }
     }
-    console.log(num1 + ":num1  operator:" + operator + "  num2:" + num2 );
-    if(num1 == "") return history;
-    if(num2 == "") return history;
-    if(operator != ""){
-        if(operator == "+"){
-            console.log("+");
-            return Number(num1) + Number(num2);
-        }
-        else if(operator == "-"){
-            console.log("-");
-            return Number(num1) - Number(num2);
-        }
-        else if(operator == "*"){
-            console.log("*");
-            return Number(num1) * Number(num2);
-        }
-        else if(operator == "/"){
-            console.log("/");
-            return Number(num1) / Number(num2);
-        }
-        else if(operator == "%"){
-            console.log("%");
-            return Number(num1) % Number(num2);
+    numbers.push(num1);
+    console.log("Total numbers/operators: " + numbers.length + " / " +  operators.length);
+    for(let operator of operators){
+        let num1 = numbers.pop();
+        let num2 = numbers.pop();
+        let result = "";
+        console.log("num1: " + num1 + " operator:" + operator + "  num2:" + num2 );
+        if(operator != ""){
+            if(operator == "+"){
+                console.log("+");
+                result = Number(num1) + Number(num2);
+            }
+            else if(operator == "-"){
+                console.log("-");
+                result = Number(num1) - Number(num2);
+            }
+            else if(operator == "*"){
+                console.log("*");
+                result = Number(num1) * Number(num2);
+            }
+            else if(operator == "/"){
+                console.log("/");
+                result = Number(num1) / Number(num2);
+            }
+            else if(operator == "%"){
+                console.log("%");
+                result = Number(num1) % Number(num2);
+            }
+            numbers.push(result);
         }
     }
+    return numbers[0];
 }
 var isDigit = (function() {
     // https://stackoverflow.com/questions/8935632/check-if-character-is-number
