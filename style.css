@@ -69,3 +69,25 @@ body{
 .operator:focus, .number:focus, .empty:focus{
     outline: 0;
 }
+button:nth-child(4){
+    font-size: 20px;
+    background-color:burlywood;
+}
+button:nth-child(8){
+    font-size: 20px;
+    background-color:orchid;
+}
+button:nth-child(12){
+    font-size: 20px;
+    background-color:orange;
+}
+
+button:nth-child(16){
+    font-size: 20px;
+    background-color:tomato;
+}
+button:nth-child(20){
+    font-size: 20px;
+    background-color: black;
+    color: white;
+}
